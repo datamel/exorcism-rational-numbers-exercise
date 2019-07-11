@@ -1,31 +1,46 @@
 from __future__ import division
 
-
 class Rational(object):
     
     def __init__(self, numer, denom):
         self.numer = numer
         self.denom = denom
+        self.__reduce__()
+
+        if (self.numer and self.denom) < 0:
+            self.numer = self.numer*-1
+            self.denom = self.denom*-1
+        elif (self.numer and not self.denom) or (not self.numer and self.denom)<0:
+            abs(self.numer) and abs(self.denom)
+            self.numer = self.numer*-1 
+
+        
+
+    def __reduce__(self):    
+        import math
+        ## TypeError: 'float' object cannot be interpreted as an integer
+        
+        factor = math.gcd(self.numer, self.denom) 
+        ## broke (works if I just say = 1)
+        self.numer = int(self.numer/factor) 
+        self.denom = int(self.denom/factor)
+        #### commented this out as it blew up ith recursive loop!!
+        #return Rational(self.numer, self.denom)
 
     def __eq__(self, other):
         return self.numer == other.numer and self.denom == other.denom
 
     def __repr__(self):
-        import math
-        factor = math.gcd(self.numer, self.denom)
-        self.numer = int(self.numer/factor) 
-        self.denom = int(self.denom/factor)
-
-        return Rational(self.numer, self.denom)
-        #return '{}/{}'.format(self.numer, self.denom)
+ 
+        return '{}/{}'.format(self.numer, self.denom)
 
     def __add__(self, other):
         import math
         addnumer = ((self.numer *other.denom) + (other.numer*self.denom))
         adddenom = (self.denom*other.denom) 
         factor = math.gcd(adddenom, addnumer)
-        self.numer = addnumer/factor 
-        self.denom = adddenom/factor
+        self.numer = int(addnumer/factor) 
+        self.denom = int(adddenom/factor)
         
         return Rational(self.numer, self.denom)
        # return '{}/{}'.format(self.numer, self.denom)
@@ -35,8 +50,8 @@ class Rational(object):
         subtrnumer = ((self.numer *other.denom) - (other.numer*self.denom))
         subtrdenom = (self.denom*other.denom) 
         factor = math.gcd(subtrdenom, subtrnumer)
-        self.numer = subtrnumer/factor 
-        self.denom = subtrdenom/factor
+        self.numer = int(subtrnumer/factor) 
+        self.denom = int(subtrdenom/factor)
         
         return Rational(self.numer, self.denom)
        # return '{}/{}'.format(self.numer, self.denom)
@@ -46,8 +61,8 @@ class Rational(object):
         multnumer = (self.numer *other.numer)
         multdenom = (self.denom*other.denom) 
         factor = math.gcd(multdenom, multnumer)
-        self.numer = multnumer/factor 
-        self.denom = multdenom/factor
+        self.numer = int(multnumer/factor) 
+        self.denom = int(multdenom/factor)
         
         return Rational(self.numer, self.denom)
        # return '{}/{}'.format(self.numer, self.denom)
