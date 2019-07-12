@@ -74,8 +74,10 @@ class Rational(object):
         return Rational(self.numer, self.denom)      
 
     def __abs__(self):
-        pass
-
+        self.numer = abs(self.numer) 
+        self.denom = abs(self.denom)
+        return Rational(self.numer, self.denom)  
+        
     def __pow__(self, power):
         pass
 
