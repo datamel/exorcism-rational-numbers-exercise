@@ -88,4 +88,10 @@ class Rational(object):
         
 
     def __rpow__(self, base):
-        pass
+        if self.numer <0:
+            base = 1/base
+            self.numer = self.numer*-1
+        else:
+            base = base
+        base = base**(self.numer/self.denom)
+        return base
