@@ -77,9 +77,15 @@ class Rational(object):
         self.numer = abs(self.numer) 
         self.denom = abs(self.denom)
         return Rational(self.numer, self.denom)  
-        
+
     def __pow__(self, power):
-        pass
+        self.numer = self.numer**power
+        self.denom = self.denom**power
+        factor = math.gcd(self.numer, self.denom)
+        self.numer = int(self.numer/factor) 
+        self.denom = int(self.denom/factor)
+        return Rational(self.numer, self.denom)  
+        
 
     def __rpow__(self, base):
         pass
